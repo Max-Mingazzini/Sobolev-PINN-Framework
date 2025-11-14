@@ -1,0 +1,51 @@
+equation:
+  name: generalized_lotka_volterra
+
+data:
+  initial_condition: [1.0, 1.0, 1.0]
+  t0: 0.0
+  t_final: 20.0
+  n_time_points: 400
+
+  param_ranges:
+    # r (d_y = 3)
+    - [ 0.1,  1.0]   # r0
+    - [ 0.1,  1.0]   # r1
+    - [ 0.1,  1.0]   # r2
+
+    - [-1.5, -0.1]   # A00
+    - [-0.8,  0.8]   # A01
+    - [-0.8,  0.8]   # A02
+    - [-0.8,  0.8]   # A10
+    - [-1.5, -0.1]   # A11
+    - [-0.8,  0.8]   # A12
+    - [-0.8,  0.8]   # A20
+    - [-0.8,  0.8]   # A21
+    - [-1.5, -0.1]   # A22
+  n_param_samples: 128 
+
+model:
+  param_dim: 12     # d_y + d_y^2 = 3 + 9
+  state_dim: 3
+  hidden_layers: [128, 128, 128]
+
+train:
+  learning_rate: 1.0e-3
+  weight_decay: 0.0
+  batch_size: 256
+  epochs: 2000
+  log_interval: 50
+  shuffle: true
+  test_split_share: 0.2
+
+  # losses
+  w_data: 1.0
+  w_phys: 1.0
+  w_time: 0.1
+  w_param: 0.1
+  time_order: 1
+  time_order_weights: [1.0]
+  use_param_sens: true
+
+debug:
+  detect_anomaly: false

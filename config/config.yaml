@@ -1,0 +1,51 @@
+equation:
+  name: lotka_volterra
+
+data:
+  initial_condition: [1.0, 1.0]
+  t0: 0.0
+  t_final: 10.0
+  n_time_points: 300
+  param_ranges:
+    - [0.5, 1.5]   # alpha
+    - [0.5, 1.5]   # beta
+    - [0.5, 1.5]   # delta
+    - [0.5, 1.5]   # gamma
+  n_param_samples: 10
+  odeint_options:
+    rtol: 1.0e-9
+    atol: 1.0e-12
+    method: "dopri5"
+
+model:
+  param_dim: 4
+  state_dim: 2
+  hidden_layers: [64, 64, 64]
+
+train:
+  device: cuda:0
+  dtype: float32
+  seed: 0
+  learning_rate: 1.0e-3
+  weight_decay: 0.0
+  batch_size: 32768
+  epochs: 10
+  log_interval: 100
+  shuffle: true
+  test_split_share: 0.2
+  w_phys: 1.0
+  w_data: 1.0
+  w_time: 0
+  w_param: 0
+  w_ic: 1.0
+  time_order: 0
+  time_order_weights: [1, 1]
+  use_param_sens: false
+  normalize_time: true
+  normalize_params: true
+
+
+eval:
+  param_mode: "random"
+  n_param_samples: 10
+  seed: 12345

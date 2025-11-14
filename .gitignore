@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Data files
+*.h5
+*.csv
+*.pkl
+g
+
+# models
+runs/
+cache/
+
+# misc
+figs/
+sweeps/
+eval/
+eval_outputs/
+experiments/
+test.py
+sweeps_glv_scale/

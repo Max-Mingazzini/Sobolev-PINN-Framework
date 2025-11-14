@@ -1,0 +1,48 @@
+equation:
+  name: lotka_volterra
+
+data:
+  initial_condition: [] # list of with size d_y
+  t0: 0.0
+  t_final: 1.0
+  n_time_points: 100
+  param_ranges: # list, specific to the ode
+  parameter_mode: 'random' # or 'uniform'
+  odeint_options: # hyperparameters passed to the torchdiffeq solver
+    rtol: 1.0e-9
+    atol: 1.0e-12
+    method: "dopri5"
+
+model:
+  param_dim: #size of the parameter input p: d_p
+  state_dim: # size of the output state: d_y
+  hidden_layers: [64, 64, 64, 64] # list with dimensions of output layers
+
+train:
+  device: cuda:0
+  dtype: float32
+  seed: 0 # seed used for all things random
+  learning_rate: 1.0e-3
+  weight_decay: 0.0
+  batch_size: 32768
+  epochs: 1000
+  log_interval: 100
+  shuffle: true
+  test_split_share: 0.2
+  w_phys: 1.0
+  w_data: 1.0
+  w_time: 0
+  w_param: 0
+  w_ic: 1.0
+  time_order: 0
+  time_order_weights: [1, 1] # used in addition to w_phys for control over FO and SO temporal Sobolev
+  #toggles
+  use_param_sens: false
+  normalize_time: true
+  normalize_params: true
+
+
+eval:
+  param_mode: "random"
+  n_param_samples: 10
+  seed: 12345
